@@ -1,0 +1,82 @@
+class Student:
+    def __init__(self, name):
+        self.name = name
+        self.grades = {}
+
+    def add_grade(self, subject, grade):
+        if subject in self.grades:
+            self.grades[subject].append(grade)
+        else:
+            self.grades[subject] = [grade]
+
+    def calculate_average_grade(self):
+        total_sum = 0
+        total_count = 0
+        for grades_list in self.grades.values():
+            total_sum += sum(grades_list)
+            total_count += len(grades_list)
+        if total_count == 0:
+            return 0
+        else:
+            return total_sum / total_count
+
+    def calculate_letter_grade(self):
+        average_grade = self.calculate_average_grade()
+        if average_grade > 90:
+            return 'O'
+        elif average_grade > 80:
+            return 'A+'
+        elif average_grade > 70:
+            return 'A'
+        elif average_grade > 60:
+            return 'B+'
+        else:
+            return 'B'
+
+    def calculate_gpa(self):
+        average_grade = self.calculate_average_grade()
+        if average_grade > 90:
+            return 10.0
+        elif average_grade > 80:
+            return 9.0
+        elif average_grade > 70:
+            return 8.0
+        elif average_grade > 60:
+            return 7.0
+        else:
+            return 6.0
+
+    def display_grades(self):
+        print(f"Grades for {self.name}:")
+        for subject, grades_list in self.grades.items():
+            print(f"{subject}: {grades_list}")
+
+    def display_average_grade(self):
+        avg_grade = self.calculate_average_grade()
+        letter_grade = self.calculate_letter_grade()
+        gpa = self.calculate_gpa()
+        print(f"Average Grade: {avg_grade:.2f}")
+        print(f"Letter Grade: {letter_grade}")
+        print(f"GPA: {gpa:.2f}")
+
+
+# Example usage:
+if __name__ == "__main__":
+    # Create a student instance
+    student = Student("John Doe")
+
+    # Add grades for different subjects
+    student.add_grade("Math", 85)
+    student.add_grade("Math", 80)
+    student.add_grade("Science", 78)
+    student.add_grade("English", 81)
+    student.add_grade("History", 72)
+
+
+
+    # Display all grades
+    student.display_grades()
+    print()
+
+    # Display average grade, letter grade, and GPA
+    student.display_average_grade()
